@@ -1,1 +1,3 @@
-export const getPhotos = "&query=office";
+import { BaseUrl } from "./BaseUrl";
+
+export const getGalleryUrl = BaseUrl + "&query=s";

@@ -2,17 +2,17 @@ import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
 
 interface AppContextType {
-  isDartTheme: boolean;
+  isDarkTheme: boolean;
   toggleTheme: () => void;
 }
 
 const AppContext = createContext<AppContextType>({
-  isDartTheme: false,
+  isDarkTheme: false,
   toggleTheme: () => {},
 });
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [isDartTheme, setIsDarkTheme] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const toggleTheme = () => {
     setIsDarkTheme((prev) => !prev);
@@ -21,7 +21,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AppContext.Provider value={{ isDartTheme, toggleTheme }}>
+    <AppContext.Provider value={{ isDarkTheme, toggleTheme }}>
       {children}
     </AppContext.Provider>
   );
