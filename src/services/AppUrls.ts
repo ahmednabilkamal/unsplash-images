@@ -1,3 +1,3 @@
 import { BaseUrl } from "./BaseUrl";
 
-export const getGalleryUrl = BaseUrl + "&query=s";
+export const getGalleryUrl = BaseUrl + "&query=";

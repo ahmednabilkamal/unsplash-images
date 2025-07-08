@@ -1,4 +1,7 @@
+import { useAppContext } from "../../context/AppContext";
+
 function SearchInput() {
+  const { setSearch } = useAppContext();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -8,9 +11,11 @@ function SearchInput() {
     };
 
     const searchValue = formElements.search.value;
-    console.log(searchValue);
-
-    if (!searchValue) return;
+    if (!searchValue) {
+      return;
+    } else {
+      setSearch(searchValue);
+    }
   };
 
   return (

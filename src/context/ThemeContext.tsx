@@ -1,8 +1,8 @@
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 
-import { useAppContext } from "../../context";
+import { useAppContext } from "./AppContext";
 
-const Home = () => {
+const ThemeContext = () => {
   const { isDarkTheme, toggleTheme } = useAppContext();
 
   return (
@@ -18,4 +18,4 @@ const Home = () => {
   );
 };
 
-export { Home };
+export { ThemeContext };

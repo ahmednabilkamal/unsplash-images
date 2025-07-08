@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+
 import { getGalleryUrl } from "../../services/AppUrls";
+import { useAppContext } from "../../context/AppContext";
 
 interface GalleryItem {
   id: string;
@@ -11,10 +13,14 @@ interface GalleryItem {
 }
 
 const Gallery = () => {
-  const getGalleryResponse = useQuery<GalleryItem[]>({
-    queryKey: ["gallery"],
+  const { search } = useAppContext();
+
+  const getGalleryResponse = useQuery<GalleryItem[], AxiosError>({
+    queryKey: ["gallery", search],
     queryFn: async () => {
-      const galleryResult = await axios.get(getGalleryUrl);
+      const galleryResult = await axios.get<GalleryItem[]>(
+        `${getGalleryUrl}${search}`
+      );
       return galleryResult.data;
     },
   });
@@ -22,7 +28,7 @@ const Gallery = () => {
   if (getGalleryResponse.isError) {
     return (
       <section className="image-container">
-        <h4>Something went wrong</h4>
+        <h4>Something went wrong: {getGalleryResponse.error.message}</h4>
       </section>
     );
   }
@@ -36,7 +42,7 @@ const Gallery = () => {
   }
 
   const result = getGalleryResponse.data;
-  if (result && result?.length < 1) {
+  if (!result || result.length === 0) {
     return (
       <section className="image-container">
         <h4>No data found</h4>
@@ -46,16 +52,14 @@ const Gallery = () => {
 
   return (
     <section className="image-container">
-      {result?.map((item) => {
-        return (
-          <img
-            src={item.urls.regular}
-            alt={item.alt_description}
-            key={item.id}
-            className="img"
-          />
-        );
-      })}
+      {result.map((item) => (
+        <img
+          src={item.urls.regular}
+          alt={item.alt_description || "Gallery image"}
+          key={item.id}
+          className="img"
+        />
+      ))}
     </section>
   );
 };

@@ -1,13 +1,14 @@
 import "./App.css";
 import { SearchInput } from "./components";
-import { Gallery, Home } from "./screens";
+import { ThemeContext } from "./context";
+import { Gallery } from "./screens";
 
 function App() {
   return (
     <>
+      <ThemeContext />
       <SearchInput />
       <Gallery />
-      <Home />
     </>
   );
 }
